@@ -1,3 +1,5 @@
+<img src="SINE logo.svg" width="320px">
+
 # SINE
 
 A file format containing a list of audio waves.
@@ -18,7 +20,7 @@ All that you need is an idea for a sound and a simple command.
 ## Commands
 
 Sine puts 3 CLI tools when the package is installed: `sineread.py`, `sinemake.py` and `sinesave.py`.
-(Don't ask why the extension is .py since the file is not binary 🙂)
+(Don't ask why the extension is .py since the files are not binary 🙂)
 
 For sineread the arguments are:
 
