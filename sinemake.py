@@ -1,4 +1,3 @@
-from sine.__special_chars import *
 import argparse
 from sine.__special_chars import gs, us, eot, soh, stx, etx
 
