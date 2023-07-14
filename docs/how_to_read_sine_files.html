@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <title>How to read sine files</title>
+</head>
+<body>
+    <div class="top-image">
+        <img src="https://raw.githubusercontent.com/TRyan09/tryan09.github.io/main/img/banner.png" alt="banner">
+    </div>
+    <nav>
+        <br>
+        <a href="index.html"><i class="fa fa-house"></i> Home</a>
+        <br>
+        <br>
+        <a href="using_sine.html"><i class="fa fa-arrow-right"></i> How to use sine in general</a>
+        <br>
+        <br>
+        <a href="package_doc.html"><i class="fa fa-arrow-right"></i> Package Documentation</a>
+        <br>
+        <br>
+        <a href="https://github.com/try-an/sine"><i class="fab fa-github"></i> Official Repository</a>
+    </nav>
+    <main>
+        <article>
+            <section>
+                <h1>Inside a sine file</h1>
+                <p class="small-text"><i class="fas fa-mobile-alt"></i> Disclaimer: This page is not made for phones</p>
+            </section>
+            <a href="#intro"><hr id="intro"></a>
+            <section>
+                <p>
+                    If you look at a sine file inside an editor like, for example, VScode and bypass the encoding warnings.
+                    You'll see a jumbled mess of random characters. However, these "random" characters actually have
+                    a meaning
+                    <br><br>
+                    So... how can you read it ?
+                </p>
+            </section>
+            <a href="#sine-file"><hr id="sine-file"></a>
+            <section>
+                <p>
+                    In the project's official repo (see the sidebar), inside "tests/examples" you'll see a bunch of sine files.
+                    We will look at "repeatsignal.sine". The file should look like this in VScode.
+                </p>
+
+                <code>
+                    <span class="highlight">␁</span>SINEFILE<span class="highlight">␟</span>10<span class="highlight">␟</span>8000<span class="highlight">␟</span>sine<span class="highlight">␂</span>Ƹ<span class="highlight">␟</span>Ǵ<span class="highlight">␝␀␟</span>Ǵ<span class="highlight">␃</span>SINEFILE<span class="highlight">␄</span>
+                </code>
+
+                <p class="small-text"><i class="fas fa-info-circle"></i> Please note that <span class="highlight">␁</span> and other characters represent control characters (from U+0000 to U+001F). If you copy, for example, <span class="highlight">␁</span>, it will copy U+2401 and not U+0001</p>
+
+                <p>
+                    Let's break it down:
+                </p>
+            </section>
+            <a href="#header"><hr id="header"></a>
+            <section>
+                <h2>The header:</h2>
+                <p>
+                    The file's "header" starts at <span class="highlight">␁</span> and ends at
+                    <span class="highlight">␂</span>.
+                    The file's different properties are split by the <span class="highlight">␟</span> character.
+                    <br>
+                    So in that case, the file's header contains:
+                </p>
+                <code>
+                    SINEFILE<span class="highlight">␟</span>10<span class="highlight">␟</span>8000<span class="highlight">␟</span>sine
+                </code>
+                <p>
+                    The header is always structured like this:
+                    <br>
+                    [file signature: "SINEFILE"], [repetition], [sample rate], [waveform]
+                    <br>
+                    The repetition property is where you can specify how many times the audio will repeat.
+                    In that case, the audio will repeat 10 times at a sample rate of 8000 hz, using sine waves.
+                </p>
+            </section>
+            <a href="#content"><hr id="content"></a>
+            <section>
+                <h2>The Content:</h2>
+                <p>
+                    The content of the file is an array of frequency-duration pairs. The pairs are seperated by
+                    <span class="highlight">␝</span> and the pair's properties are seperated by
+                    <span class="highlight">␟</span>. Starting and ending by <span class="highlight">␂</span>
+                    and <span class="highlight">␃</span> respectively, the content of the current sine file is:
+                </p>
+                <code>Ƹ<span class="highlight">␟</span>Ǵ<span class="highlight">␝␀␟</span>Ǵ</code>
+                <p>
+                    Now we need to understand that gibberish. First, we split the content into the 2 groups:
+                    <br>
+                    <code>Ƹ<span class="highlight">␟</span>Ǵ</code>
+                    and
+                    <code><span class="highlight">␀␟</span>Ǵ</code>
+                    <br>
+                    Next, we seperate these groups' properties, giving us:
+                    <br>
+                    <code>Ƹ, Ǵ</code>
+                    and
+                    <code><span class="highlight">␀</span>, Ǵ</code>
+                    <br>
+                    Finally, we take the characters of these pairs and we get their numerical values, finally giving us:
+                    <br>
+                    <code>440, 500</code> and <code>0, 500</code>
+                    <br>
+                    However, these numbers mean nothing yet, that's beacause there are no units. Luckily,
+                    all that we have to know is that the pairs' properties' units are respectively hertz and miliseconds.
+                    <br>
+                    So, to recap, we went from this:
+                    <br>
+                    <code>Ƹ<span class="highlight">␟</span>Ǵ<span class="highlight">␝␀␟</span>Ǵ</code>
+                    <br>
+                    to this:
+                    <br>
+                    <code>440 hz, 500 ms</code> <code>0 hz, 500 ms</code>
+                </p>
+            </section>
+            <a href="#footer"><hr id="footer"></a>
+            <section>
+                <h2>The Footer:</h2>
+
+                <p>
+                    The footer/end of the file, beggining with
+                    <span class="highlight">␃</span> and ending
+                    with <span class="highlight">␄</span>, is just the file signature ( <code>SINEFILE</code> )
+                </p>
+            </section>
+            <a href="#conclusion"><hr id="conclusion"></a>
+            <section>
+                <h2>To conclude:</h2>
+
+                <code>
+                    <span class="highlight">␁</span>SINEFILE<span class="highlight">␟</span>10<span class="highlight">␟</span>8000<span class="highlight">␟</span>sine<span class="highlight">␂</span>Ƹ<span class="highlight">␟</span>Ǵ<span class="highlight">␝␀␟</span>Ǵ<span class="highlight">␃</span>SINEFILE<span class="highlight">␄</span>
+                </code>
+
+                <p>
+                    translates to:
+                    <br>
+                    "Reapeat 10 times at a sample rate of 8000 hz, using sine waves, the waves: 440 hz for 500 ms and 0 hz for 500 ms"
+                </p>
+            </section>
+        </article>
+        <a href="#end"><hr id="end"></a>
+        <p class="small-text">Note: sine files are structured in a format similar to <a href="https://github.com/sixarm/usv">unicode seperated values</a>, however the special characters are the control characters from U+0000 to U+001F</p>
+    </main>
+</body>
+</html>

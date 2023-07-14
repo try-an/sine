@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <title>SINE</title>
+</head>
+<body>
+    <div class="top-image">
+        <img src="https://raw.githubusercontent.com/TRyan09/tryan09.github.io/main/img/banner.png" alt="banner">
+    </div>
+    <nav>
+        <br>
+        <a href="index.html"><i class="fa fa-house"></i> Home</a>
+        <br>
+        <br>
+        <a href="how_to_read_sine_files.html"><i class="fa fa-arrow-right"></i> The insides of a sine file</a>
+        <br>
+        <br>
+        <a href="package_doc.html"><i class="fa fa-arrow-right"></i> Package Documentation</a>
+        <br>
+        <br>
+        <a href="https://github.com/try-an/sine"><i class="fab fa-github"></i> Official Repository</a>
+    </nav>
+    <main>
+        <article>
+            <section id="title">
+                <h1>Using Sine</h1>
+                <p class="small-text"><i class="fas fa-mobile-alt"></i> Disclaimer: This page is not made for phones</p>
+            </section>
+            <a href="#num1"><hr id="num1"></a>
+            <section>
+                <h2>1: Install the sine package</h2>
+                <p>
+                    Currently, the package is not available in pypi, so to install, you have to type the command <code>pip install .</code>
+                </p>
+            </section>
+            <a href="#num2"><hr id="num2"></a>
+            <section>
+                <h2>2: Create your first .sine file</h2>
+                <p>
+                    To create a sine file, you need to use the sinemake.py command.
+                    Below is the help for sinemake.py since it has a lot of arguments:
+                </p>
+                <div class="bigcode">
+                    <samp>
+                        usage: sinemake.py [-h] notes output repeat samplerate wavetype
+                        <br>
+                        <br>
+                        Create sine files by specifying frequencies with a specific syntax. (Sine is a file format for creating frequency-duration pairs)  
+                        <br>
+                        <br>
+                        positional arguments:
+                        <br>
+                          notes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The content of the sine file, use the syntax: '[frequency (hz)]-[duration (ms)] [frequency (hz)]-[duration (ms)] ...'
+                        <br>
+                          output&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name of the sine file
+                        <br>
+                          repeat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How many times will the audio repeat (if only once, just type 1)
+                        <br>
+                          samplerate&nbsp;&nbsp;The audio's sample rate (usually 44100hz or 48000hz)
+                        <br>
+                          wavetype&nbsp;&nbsp;&nbsp;&nbsp;Waveform used for the file (either sine, square, saw and tri)
+                        <br>
+                        <br>
+                        options:
+                        <br>
+                          -h, --help  show this help message and exit
+                        <br>
+                        <br>
+                        For more help, please visit the documentation
+                    </samp>
+                </div>
+                <p>And here's an example, the nokia tune: </p>
+                <code>sinemake.py "164-125 146-125 92-250 102-250 138-125 122-125 72-250 82-250 122-125 110-125 68-250 82-250 110-500 0-500" nokia.sine 2 48000 square</code>
+            </section>
+            <a href="#num3"><hr id="num3"></a>
+            <section>
+                <h2>3: Read a .sine file</h2>
+                <p>
+                    You can use the command line tool sineread.py or use the package:
+                </p>
+                <p>Package:</p>
+                <div class="bigcode">
+                    <span class="key">import</span> <span class="module">sine</span>
+                    <br>
+                    <span class="var">file</span> = <span class="module">sine</span>.<span class="obj">SineFile</span><span class="parenthesis">(</span><span class="str">"path/to/your/sine_file.sine"</span><span class="parenthesis">)</span>
+                    <br>
+                    <span class="var">file</span>.<span class="func">play</span><span class="parenthesis">()</span>
+                </div>
+                <p>CLI tool:</p>
+                <code>python sineread.py "path/to/your/sine_file.sine"</code>
+            </section>
+            <a href="#num4"><hr id="num4"></a>
+            <section>
+                <h2>4: Convert a .sine file to a .wav file</h2>
+                <p>
+                    Again, you can use the package or use sinesave.py
+                </p>
+                <p>Package:</p>
+                <div class="bigcode">
+                    <span class="key">import</span> <span class="module">sine</span>
+                    <br>
+                    <span class="var">file</span> = <span class="module">sine</span>.<span class="obj">SineFile</span><span class="parenthesis">(</span><span class="str">"path/to/your/sine_file.sine"</span><span class="parenthesis">)</span>
+                    <br>
+                    <span class="var">file</span>.<span class="func">save_to_wav</span><span class="parenthesis">(</span><span class="str">"path/to/your/wav_file.wav"</span><span class="parenthesis">)</span>
+                </div>
+                <p>CLI tool:</p>
+                <code>python sinesave.py "path/to/your/sine_file.sine" "path/to/your/wav_file.wav"</code>
+            </section>
+        </article>
+    </main>
+</body>
+</html>

@@ -1,0 +1,90 @@
+body {
+    font-family: "Josefin Sans";
+    font-size: large;
+    font-weight: 600;
+}
+
+.top-image>img {
+    position: absolute;
+    width: 100%;
+    margin: 0px;
+    top: 0%;
+}
+
+main {
+    margin-left: 10%;
+    margin-top: 15%;
+}
+
+h1 {
+    font-size: 300%;
+}
+
+code, .bigcode, samp {
+    font-family: 'Consolas';
+    font-size: small;
+    font-weight: 300;
+    background-color: rgb(45, 58, 75);
+    padding: 1px;
+    margin: 5px;
+    border-radius: 5px;
+    color: white;
+}
+
+.highlight {
+    background-color: rgb(214, 9, 9);
+    color: white;
+}
+
+.small-text {
+    font-size: 12px;
+}
+
+nav {
+    height: 100%;
+    width: 5%;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    overflow: hidden;
+    background-color: #31433a;
+    transition-duration: 1s;
+}
+nav:hover {
+    width: 90%;
+    transition-duration: 1s;
+}
+nav:hover>* {
+    opacity: 1;
+    pointer-events: all;
+    transition-duration: 1s;
+}
+nav>* {
+    color: white;
+    opacity: 0;
+    pointer-events: none;
+    transition-duration: 1s;
+    text-decoration: none;
+}
+
+span.var {
+    color: rgb(152, 233, 233);
+}
+span.func {
+    color: rgb(233, 226, 152);
+}
+span.obj {
+    color: rgb(81, 208, 151);
+}
+span.str {
+    color: rgb(236, 158, 80);
+}
+span.module {
+    color: rgb(107, 220, 146);
+}
+span.parenthesis {
+    color: rgb(224, 203, 93);
+}
+span.key {
+    color: rgb(207, 117, 252);
+}
